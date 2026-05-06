@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons_flutter.dart';
 import '../../../logic/cubits/auth/auth_cubit.dart';
 import '../../../logic/cubits/auth/auth_state.dart';
 import '../../../core/theme/app_colors.dart';

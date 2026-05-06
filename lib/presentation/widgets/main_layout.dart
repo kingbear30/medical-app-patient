@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lucide_icons_flutter/lucide_icons_flutter.dart';
 import '../screens/dashboard/dashboard_screen.dart';
 import '../screens/appointments/appointments_screen.dart';
 import '../screens/results/results_screen.dart';
