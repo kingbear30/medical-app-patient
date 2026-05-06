@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Médica - Integración Completa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.321.0/font/lucide.min.css">
+    <style>
+        :root {
+            --background: #F8F9FA;
+            --primary: #0047AB;
+            --navy: #002366;
+            --emerald: #50C878;
+            --text-dark: #1A1A1A;
+            --text-light: #6C757D;
+            --white: #FFFFFF;
+            --divider: #E9ECEF;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .phone-container { width: 375px; background: var(--background); border-radius: 40px; border: 12px solid #1a1a1a; height: 780px; overflow: hidden; position: relative; box-shadow: 0 50px 100px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
+        .screen { flex: 1; overflow-y: auto; display: none; animation: fadeIn 0.3s ease; }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Login Screen */
+        .login-screen { padding: 60px 30px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+        .input-group input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--divider); }
+
+        /* General UI */
+        header { padding: 40px 24px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--white); }
+        .hero-card { margin: 20px; background: var(--navy); border-radius: 20px; padding: 24px; color: var(--white); }
+        .section-title { padding: 0 20px; font-size: 16px; font-weight: 700; margin: 10px 0; color: var(--navy); }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px 20px; }
+        .action-card { background: var(--white); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; align-items: center; border: 1px solid var(--divider); text-align: center; cursor: pointer; }
+        
+        /* Profile Screen */
+        .profile-header { padding: 40px 20px; text-align: center; background: white; }
+        .avatar { width: 80px; height: 80px; background: var(--primary); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; }
+        .info-card { margin: 20px; padding: 20px; background: white; border-radius: 16px; border: 1px solid var(--divider); }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .info-row span:first-child { color: var(--text-light); }
+
+        /* Bottom Nav */
+        .bottom-nav { height: 70px; background: white; border-top: 1px solid var(--divider); display: none; justify-content: space-around; align-items: center; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-light); cursor: pointer; font-size: 10px; gap: 4px; }
+        .nav-item.active { color: var(--primary); }
+
+        .btn-full { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <!-- Screen: Login -->
+        <div id="screen-login" class="screen active">
+            <div class="login-screen">
+                <i class="lucide-shield-check" style="color:var(--primary);font-size:48px;"></i>
+                <h1 style="margin-top:30px;color:var(--navy);">Bienvenido,</h1>
+                <p style="color:var(--text-light);margin-bottom:40px;">Inicia sesión para gestionar tu salud.</p>
+                <div class="input-group"><label>Correo Electrónico</label><input type="text" placeholder="ejemplo@correo.com"></div>
+                <div class="input-group"><label>Contraseña</label><input type="password" placeholder="********"></div>
+                <button class="btn-full" onclick="login()">Iniciar Sesión</button>
+                <p style="text-align:center;margin-top:20px;font-size:14px;">¿No tienes cuenta? <span style="color:var(--primary);font-weight:700;">Regístrate</span></p>
+            </div>
+        </div>
+
+        <!-- Screen: Home -->
+        <div id="screen-home" class="screen">
+            <header>
+                <div><h2>Hola,</h2><h1>Juan Perez</h1></div>
+                <div style="display:flex;gap:10px;"><i class="lucide-bell"></i><i class="lucide-user"></i></div>
+            </header>
+            <div class="hero-card">
+                <div style="display:flex;justify-content:space-between;opacity:0.7;font-size:12px;margin-bottom:10px;">
+                    <span>Próxima Cita</span><i class="lucide-calendar"></i>
+                </div>
+                <h3>Dr. Alejandro Sanchez</h3>
+                <p style="font-size:14px;margin-bottom:15px;">15 de Mayo, 10:30 AM</p>
+                <button style="width:100%;padding:10px;border-radius:10px;border:none;background:var(--emerald);color:white;font-weight:600;">Ver detalles</button>
+            </div>
+            <h3 class="section-title">Acciones Rápidas</h3>
+            <div class="grid">
+                <div class="action-card" onclick="switchScreen('appointments')"><i class="lucide-calendar-plus" style="color:var(--primary);margin-bottom:10px;"></i><span>Nueva Cita</span></div>
+                <div class="action-card" onclick="switchScreen('results')"><i class="lucide-file-text" style="color:var(--primary);margin-bottom:10px;"></i><span>Resultados</span></div>
+                <div class="action-card"><i class="lucide-search" style="color:var(--primary);margin-bottom:10px;"></i><span>Directorio</span></div>
+                <div class="action-card" onclick="switchScreen('profile')"><i class="lucide-user" style="color:var(--primary);margin-bottom:10px;"></i><span>Perfil</span></div>
+            </div>
+        </div>
+
+        <!-- Screen: Profile -->
+        <div id="screen-profile" class="screen">
+            <div class="profile-header">
+                <div class="avatar"><i class="lucide-user" style="font-size:40px;"></i></div>
+                <h1 style="font-size:20px;color:var(--navy);">Juan Perez</h1>
+                <p style="color:var(--text-light);font-size:14px;">402-0000000-1</p>
+            </div>
+            <div class="info-card">
+                <h4 style="color:var(--primary);margin-bottom:15px;font-size:12px;">INFORMACIÓN DEL SEGURO</h4>
+                <div class="info-row"><span>ARS</span><span>Senasa</span></div>
+                <div class="info-row"><span>No. Afiliado</span><span>987654321</span></div>
+            </div>
+            <div class="info-card">
+                <h4 style="color:var(--primary);margin-bottom:15px;font-size:12px;">CONTACTO</h4>
+                <div class="info-row"><span>Teléfono</span><span>809-555-0123</span></div>
+            </div>
+            <button style="width:calc(100% - 40px);margin:20px;padding:12px;background:none;border:1px solid var(--primary);color:var(--primary);border-radius:10px;font-weight:600;" onclick="switchScreen('login')">Cerrar Sesión</button>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div id="bottom-nav" class="bottom-nav">
+            <div class="nav-item active" onclick="switchScreen('home')"><i class="lucide-home"></i><span>Inicio</span></div>
+            <div class="nav-item" onclick="switchScreen('appointments')"><i class="lucide-calendar"></i><span>Citas</span></div>
+            <div class="nav-item" onclick="switchScreen('results')"><i class="lucide-file-text"></i><span>Resultados</span></div>
+            <div class="nav-item" onclick="switchScreen('profile')"><i class="lucide-user"></i><span>Perfil</span></div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            document.getElementById('screen-login').classList.remove('active');
+            document.getElementById('screen-home').classList.add('active');
+            document.getElementById('bottom-nav').style.display = 'flex';
+        }
+
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen-' + screenId).classList.add('active');
+            
+            if(screenId === 'login') {
+                document.getElementById('bottom-nav').style.display = 'none';
+            } else {
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                const index = ['home', 'appointments', 'results', 'profile'].indexOf(screenId);
+                if(index !== -1) document.querySelectorAll('.nav-item')[index].classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

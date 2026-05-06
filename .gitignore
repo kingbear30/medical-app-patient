@@ -1,0 +1,40 @@
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Android
+.gradle/
+local.properties
+*.apk
+*.ap_
+*.dex
+*.class
+
+# iOS
+.generated/
+Flutter/Flutter.podspec
+Flutter/Generated.xcconfig
+Flutter/flutter_export_environment.sh
+ServiceDefinitions.json
+Runner/GeneratedPluginRegistrant.h
+Runner/GeneratedPluginRegistrant.m
+
+# Environment
+.env*
+!.env.dev
+!.env.prod
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Scratch
+scratch/
+create_shortcut.ps1
+Proyecto_Medico_Completo.zip

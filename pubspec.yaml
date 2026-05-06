@@ -1,0 +1,35 @@
+name: medical_app
+description: A new Flutter project for medical management.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  supabase_flutter: ^2.4.0
+  flutter_bloc: ^8.1.3
+  equatable: ^2.0.5
+  google_fonts: ^6.2.1
+  flutter_dotenv: ^5.1.0
+  shimmer: ^3.0.0
+  table_calendar: ^3.1.0
+  lucide_icons: ^0.320.0
+  font_awesome_flutter: ^10.7.0
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  bloc_test: ^9.1.7
+  mocktail: ^1.0.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env.dev
+    - .env.prod
